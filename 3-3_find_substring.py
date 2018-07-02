@@ -7,6 +7,12 @@ def find(pattern, text):
     text_hash = poly_hash(text[0:len(pattern)])
     if pattern_hash == text_hash and pattern == text[0:len(pattern)]:
         result.append(0)
+    for i in range(1, len(text) - len(pattern)):
+        prev_letter = text[i-1]
+        next_i = i+len(pattern)-1
+        text_hash = ((text_hash - ord(prev_letter)) / prime) + ord(text[next_i]) * pow(prime, len(pattern)-1)
+        if pattern_hash == text_hash and pattern == text[i:i+len(pattern)]:
+            result.append(i)
     return result
 
 
@@ -17,6 +23,5 @@ def poly_hash(string):
     return h
 
 
-
 if __name__ == '__main__':
-    print(find('zz', 'ZzzzzZzzZzzzZzzzZZZzzzzZZzzZ'))
+    print(' '.join(map(str, find('zz', 'ZzzzzZzzZzzzZzzzZZZzzzzZZzzZ'))))
