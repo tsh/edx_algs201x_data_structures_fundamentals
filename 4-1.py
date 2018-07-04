@@ -9,22 +9,23 @@ class Tree:
             self.nodes.append(n)
             self.left.append(l if l != -1 else None)
             self.right.append(r if r != -1 else None)
-        print(self.nodes, self.left, self.right)
-
-
-    def left_child(self, pos):
-        return 2*pos+1
-
-    def right_child(self, pos):
-        return 2*pos+2
-
-    def get_parent(self, pos):
-        return floor((pos-1)/2)
-
-    def in_order(self):
-        pass
 
     def pre_order(self):
+        ids = [0]
+        res = []
+        while ids:
+            nid = ids.pop()
+            node = self.nodes[nid]
+            if node:
+                res.append(node)
+            l, r = self.left[nid], self.right[nid]
+            if r:
+                ids.append(r)
+            if l:
+                ids.append(l)
+        return res
+
+    def in_order(self):
         pass
 
     def post_order(self):
@@ -43,4 +44,7 @@ if __name__ == '__main__':
     4, 2, 1, 3, 5
     1, 3, 2, 5, 4
     """
-    Tree(s)
+    t = Tree(s)
+    print(t.in_order())
+    print(t.pre_order())
+    print(t.post_order())
