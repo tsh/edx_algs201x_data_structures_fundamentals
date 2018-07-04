@@ -2,17 +2,15 @@ from math import floor
 
 class Tree:
     def __init__(self, s):
-        s = s.split('\n')
-        n = int(s[0])
-        s = s[1:]
-        self.nodes = [None] * n
-        values = [tuple(map(int, vals.split())) for vals in s]
-        root, l, r = values[0]
-        self.nodes[0] = root
-        self.nodes[1] = ...
-        for node, left, right in values[1:]:
-             pass
-        print(self.nodes)
+        items = s.split('\n')
+        self.nodes, self.left, self.right = [], [], []
+        for item in items:
+            n, l, r = map(int, item.split())
+            self.nodes.append(n)
+            self.left.append(l if l != -1 else None)
+            self.right.append(r if r != -1 else None)
+        print(self.nodes, self.left, self.right)
+
 
     def left_child(self, pos):
         return 2*pos+1
@@ -33,8 +31,7 @@ class Tree:
         pass
 
 if __name__ == '__main__':
-    s = """10
-4 1 2
+    s = """4 1 2
 2 3 4
 5 -1 -1
 1 -1 -1
