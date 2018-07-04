@@ -17,7 +17,7 @@ class Tree:
             nid = ids.pop()
             node = self.nodes[nid]
             if node:
-                res.append(node)
+                yield node
             l, r = self.left[nid], self.right[nid]
             if r:
                 ids.append(r)
@@ -26,10 +26,10 @@ class Tree:
         return res
 
     def in_order(self):
-        pass
+        yield
 
     def post_order(self):
-        pass
+        yield
 
 if __name__ == '__main__':
     s = """4 1 2
@@ -45,6 +45,6 @@ if __name__ == '__main__':
     1, 3, 2, 5, 4
     """
     t = Tree(s)
-    print(t.in_order())
-    print(t.pre_order())
-    print(t.post_order())
+    print([x for x in t.in_order()])
+    print([x for x in t.pre_order()])
+    print([x for x in t.post_order()])
