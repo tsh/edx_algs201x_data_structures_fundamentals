@@ -21,7 +21,7 @@ class Tree:
             if l:
                 ids.append(l)
 
-    def in_order(self):
+    def recur_in_order(self):
         def go(id_):
             l, r = [], []
             if self.left[id_]:
@@ -32,7 +32,17 @@ class Tree:
             return l+n+r
         return go(0)
 
-
+    def in_order(self):
+        nid = 0
+        s = []
+        while s or nid is not None:
+            if nid is not None:
+                s.append(nid)
+                nid = self.left[nid]
+            else:
+                nid = s.pop()
+                yield self.nodes[nid]
+                nid = self.right[nid]
 
     def post_order(self):
         yield
