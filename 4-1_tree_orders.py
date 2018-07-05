@@ -1,3 +1,6 @@
+from itertools import chain
+
+
 class Tree:
     def __init__(self, s):
         items = s.split('\n')
@@ -45,7 +48,21 @@ class Tree:
                 nid = self.right[nid]
 
     def post_order(self):
-        yield
+        s = [0]
+        res = []
+        while s:
+            nid = s.pop()
+            res.append(self.nodes[nid])
+            if self.left[nid]:
+                s.append(self.left[nid])
+            if self.right[nid]:
+                s.append(self.right[nid])
+        return res[::-1]
+
+
+def printer(ino, pre, post):
+    print(' '.join(map(str, [x for x in ino]+[x for x in pre]+[x for x in post])))
+
 
 if __name__ == '__main__':
     s = """4 1 2
@@ -64,3 +81,10 @@ if __name__ == '__main__':
     print([x for x in t.in_order()])
     print([x for x in t.pre_order()])
     print([x for x in t.post_order()])
+
+    t2 = Tree("""782521203 4 -1
+839950857 -1 -1
+248660666 3 -1
+696374696 -1 -1
+971981286 1 2""")
+    printer(t2.in_order(), t2.pre_order(), t2.post_order())
