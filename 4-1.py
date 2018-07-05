@@ -1,5 +1,3 @@
-from math import floor
-
 class Tree:
     def __init__(self, s):
         items = s.split('\n')
@@ -12,7 +10,6 @@ class Tree:
 
     def pre_order(self):
         ids = [0]
-        res = []
         while ids:
             nid = ids.pop()
             node = self.nodes[nid]
@@ -23,10 +20,19 @@ class Tree:
                 ids.append(r)
             if l:
                 ids.append(l)
-        return res
 
     def in_order(self):
-        yield
+        def go(id_):
+            l, r = [], []
+            if self.left[id_]:
+                l = go(self.left[id_])
+            n = [self.nodes[id_]]
+            if self.right[id_]:
+                r = go(self.right[id_])
+            return l+n+r
+        return go(0)
+
+
 
     def post_order(self):
         yield
